@@ -1,109 +1,59 @@
-calculateRows_O = (
-  usablePalletWidth,
-  usablePalletLength,
-  productWidth,
-  productLength
-) => {
+calculateRows_O = (usablePalletWidth, usablePalletLength, productWidth, productLength) => {
   const productsInPalletWidth = Math.floor(usablePalletWidth / productWidth);
   const productsInPalletLength = Math.floor(usablePalletLength / productLength);
 
   return productsInPalletWidth * productsInPalletLength;
 };
 
-calculateRows_M = (
-  usablePalletWidth,
-  usablePalletLength,
-  productWidth,
-  productLength
-) => {
+calculateRows_M = (usablePalletWidth, usablePalletLength, productWidth, productLength) => {
   //Check with 1 horizontal row, how many products are there:
-  const booksHorizontally_oneRow = Math.floor(
-    usablePalletLength / productLength
-  );
-  const productsInPalletWidth = Math.floor(
-    (usablePalletWidth - productWidth) / productLength
-  ); // - product width, because 1 row is horizontaly positioned
+  const booksHorizontally_oneRow = Math.floor(usablePalletLength / productLength);
+  const productsInPalletWidth = Math.floor((usablePalletWidth - productWidth) / productLength); // - product width, because 1 row is horizontaly positioned
   const productsInPalletLength = Math.floor(usablePalletLength / productWidth);
   const booksVertically = productsInPalletWidth * productsInPalletLength;
   const oneHorizontalRowResult = booksHorizontally_oneRow + booksVertically;
 
   //Check with 2 horizontal rows, how many products are there:
-  const booksHorizontally_twoRows = Math.floor(
-    usablePalletLength / productLength
-  );
-  const productsInPalletWidthWithTwoRows = Math.floor(
-    (usablePalletWidth - productWidth * 2) / productLength
-  ); // - product width * 2, because 2 rows are horizontaly positioned
-  const productsInPalletLengthWithTwoRows = Math.floor(
-    usablePalletLength / productWidth
-  );
-  const booksVerticallyWithTwoRows =
-    productsInPalletWidthWithTwoRows * productsInPalletLengthWithTwoRows;
-  const twoHorizontalRowsResult =
-    booksHorizontally_twoRows * 2 + booksVerticallyWithTwoRows;
+  const booksHorizontally_twoRows = Math.floor(usablePalletLength / productLength);
+  const productsInPalletWidthWithTwoRows = Math.floor((usablePalletWidth - productWidth * 2) / productLength); // - product width * 2, because 2 rows are horizontaly positioned
+  const productsInPalletLengthWithTwoRows = Math.floor(usablePalletLength / productWidth);
+  const booksVerticallyWithTwoRows = productsInPalletWidthWithTwoRows * productsInPalletLengthWithTwoRows;
+  const twoHorizontalRowsResult = booksHorizontally_twoRows * 2 + booksVerticallyWithTwoRows;
 
-  return oneHorizontalRowResult >= twoHorizontalRowsResult
-    ? oneHorizontalRowResult
-    : twoHorizontalRowsResult;
+  return oneHorizontalRowResult >= twoHorizontalRowsResult ? oneHorizontalRowResult : twoHorizontalRowsResult;
 };
 
-calculateRows_S = (
-  usablePalletWidth,
-  usablePalletLength,
-  productWidth,
-  productLength
-) => {
+calculateRows_S = (usablePalletWidth, usablePalletLength, productWidth, productLength) => {
   const booksVertically = Math.floor(usablePalletWidth / productWidth);
 
   const productsInPalletWidth = Math.floor(usablePalletWidth / productLength); // - product width, because 1 row is horizontaly positioned
-  const productsInPalletLength = Math.floor(
-    (usablePalletLength - productLength) / productWidth
-  );
+  const productsInPalletLength = Math.floor((usablePalletLength - productLength) / productWidth);
 
   const booksHorizontally = productsInPalletWidth * productsInPalletLength;
 
   return booksHorizontally + booksVertically;
 };
-calculateRows_V = (
-  usablePalletWidth,
-  usablePalletLength,
-  productWidth,
-  productLength
-) => {
+calculateRows_V = (usablePalletWidth, usablePalletLength, productWidth, productLength) => {
   const productsInPalletWidth = Math.floor(usablePalletWidth / productLength); // - product width, because 1 row is horizontaly positioned
   const productsInPalletLength = Math.floor(usablePalletLength / productWidth);
 
   return productsInPalletWidth * productsInPalletLength;
 };
-calculateRows_W = (
-  usablePalletWidth,
-  usablePalletLength,
-  productWidth,
-  productLength
-) => {
+calculateRows_W = (usablePalletWidth, usablePalletLength, productWidth, productLength) => {
   const booksVertically = Math.floor(usablePalletLength / productWidth);
 
-  const productsInPalletWidth = Math.floor(
-    (usablePalletWidth - productLength) / productWidth
-  ); // - product width, because 1 row is horizontaly positioned
+  const productsInPalletWidth = Math.floor((usablePalletWidth - productLength) / productWidth); // - product width, because 1 row is horizontaly positioned
   const productsInPalletLength = Math.floor(usablePalletLength / productLength);
 
   const booksHorizontally = productsInPalletWidth * productsInPalletLength;
 
   return booksHorizontally + booksVertically;
 };
-calculateRows_D = (
-  usablePalletWidth,
-  usablePalletLength,
-  productWidth,
-  productLength
-) => {
+calculateRows_D = (usablePalletWidth, usablePalletLength, productWidth, productLength) => {
   //Check with 1 vertical row, how many products are there:
   const booksVertically_oneRow = Math.floor(usablePalletWidth / productLength);
   const productsInPalletWidth = Math.floor(usablePalletWidth / productWidth); // - product width, because 1 row is horizontaly positioned
-  const productsInPalletLength = Math.floor(
-    (usablePalletLength - productWidth) / productLength
-  );
+  const productsInPalletLength = Math.floor((usablePalletLength - productWidth) / productLength);
   const booksHorizontally = productsInPalletWidth * productsInPalletLength;
   const oneVerticalRowResult = booksVertically_oneRow + booksHorizontally;
   return oneVerticalRowResult;
@@ -120,47 +70,57 @@ calculateRows_D = (
       */
 };
 
-exports.calculateRows = function (pallet, product) {
+calculateRows = function (pallet, product) {
   const usablePalletWidth = pallet.width - 10;
   const usablePalletLength = pallet.length - 10;
   const productWidth = product.width;
   const productLength = product.length;
 
-  const o = calculateRows_O(
-    usablePalletWidth,
-    usablePalletLength,
-    productWidth,
-    productLength
-  );
-  const m = calculateRows_M(
-    usablePalletWidth,
-    usablePalletLength,
-    productWidth,
-    productLength
-  );
-  const s = calculateRows_S(
-    usablePalletWidth,
-    usablePalletLength,
-    productWidth,
-    productLength
-  );
-  const v = calculateRows_V(
-    usablePalletWidth,
-    usablePalletLength,
-    productWidth,
-    productLength
-  );
-  const w = calculateRows_W(
-    usablePalletWidth,
-    usablePalletLength,
-    productWidth,
-    productLength
-  );
-  const d = calculateRows_D(
-    usablePalletWidth,
-    usablePalletLength,
-    productWidth,
-    productLength
-  );
+  const o = calculateRows_O(usablePalletWidth, usablePalletLength, productWidth, productLength);
+  const m = calculateRows_M(usablePalletWidth, usablePalletLength, productWidth, productLength);
+  const s = calculateRows_S(usablePalletWidth, usablePalletLength, productWidth, productLength);
+  const v = calculateRows_V(usablePalletWidth, usablePalletLength, productWidth, productLength);
+  const w = calculateRows_W(usablePalletWidth, usablePalletLength, productWidth, productLength);
+  const d = calculateRows_D(usablePalletWidth, usablePalletLength, productWidth, productLength);
   return { o, m, s, v, w, d };
+};
+
+exports.calculatePackaging = function (product, pallet, packagingRules) {
+  console.log(product, pallet, packagingRules);
+  //Ammount of products that can fit in one package within max package height of 20cm:
+  const productsInOnePackage = Math.floor(200 / product.height);
+  //One package height:
+  const onePackageHeight = productsInOnePackage * product.height;
+  //Total amount of packages for full quantity:
+  const totalNumberOfPackages = Math.ceil(product.quantity / productsInOnePackage);
+
+  //Calculate all row combinations:
+  const combinations = calculateRows(pallet, product);
+  //Make array of object properties. { a: 4, b: 0.5 , c: 0.35, d: 5 } to [4, 0.5 , 0.35, 5]
+  const array = Object.values(combinations);
+  //Find Max value:
+  const packagesOnOneRow = Math.max(...array);
+
+  //Calculate rows on one pallet:
+  const availableAmountOfRowsInPallet = Math.floor(packagingRules.maxPalletHeight / onePackageHeight);
+
+  //Max number of packages that pallet allows:
+  const availablePackagesOnPallet = Math.floor(packagingRules.maxPalletHeight / onePackageHeight) * packagesOnOneRow;
+
+  //Total number of pallets:
+  const totalNumberOfPallets = Math.ceil(totalNumberOfPackages / availablePackagesOnPallet);
+
+  //All Row Combinations:
+  const rowCombinations = calculateRows(pallet, product);
+
+  return {
+    onePackageHeight,
+    productsInOnePackage,
+    totalNumberOfPackages,
+    packagesOnOneRow,
+    availablePackagesOnPallet,
+    availableAmountOfRowsInPallet,
+    totalNumberOfPallets,
+    rowCombinations,
+  };
 };
