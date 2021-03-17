@@ -19,6 +19,7 @@ calculateRows_M = (usablePalletWidth, usablePalletLength, productWidth, productL
   const productsInPalletLengthWithTwoRows = Math.floor(usablePalletLength / productWidth);
   const booksVerticallyWithTwoRows = productsInPalletWidthWithTwoRows * productsInPalletLengthWithTwoRows;
   const twoHorizontalRowsResult = booksHorizontally_twoRows * 2 + booksVerticallyWithTwoRows;
+
   return oneHorizontalRowResult >= twoHorizontalRowsResult ? oneHorizontalRowResult : twoHorizontalRowsResult;
 };
 
@@ -45,6 +46,7 @@ calculateRows_W = (usablePalletWidth, usablePalletLength, productWidth, productL
   const productsInPalletLength = Math.floor(usablePalletLength / productLength);
   const booksHorizontally = productsInPalletWidth * productsInPalletLength;
   const oneVerticalRowResult = booksVertically_oneRow + booksHorizontally;
+  console.log(oneVerticalRowResult);
 
   //Check with 2 vertical row, how many products are there:
   const booksVertically_twoRows = Math.floor(usablePalletLength / productWidth);
@@ -52,7 +54,7 @@ calculateRows_W = (usablePalletWidth, usablePalletLength, productWidth, productL
   const productsInPalletLengthWithTwoRows = Math.floor(usablePalletLength / productLength);
   const booksHorizontallyWithTwoRows = productsInPalletWidthWithTwoRows * productsInPalletLengthWithTwoRows;
   const twoVerticalRowsResult = booksVertically_twoRows * 2 + booksHorizontallyWithTwoRows;
-
+  console.log(twoVerticalRowsResult);
   return oneVerticalRowResult >= twoVerticalRowsResult ? oneVerticalRowResult : twoVerticalRowsResult;
 
   // Ar 1 rindu, vecais
