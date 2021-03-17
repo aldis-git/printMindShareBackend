@@ -19,7 +19,6 @@ calculateRows_M = (usablePalletWidth, usablePalletLength, productWidth, productL
   const productsInPalletLengthWithTwoRows = Math.floor(usablePalletLength / productWidth);
   const booksVerticallyWithTwoRows = productsInPalletWidthWithTwoRows * productsInPalletLengthWithTwoRows;
   const twoHorizontalRowsResult = booksHorizontally_twoRows * 2 + booksVerticallyWithTwoRows;
-
   return oneHorizontalRowResult >= twoHorizontalRowsResult ? oneHorizontalRowResult : twoHorizontalRowsResult;
 };
 
@@ -27,7 +26,7 @@ calculateRows_S = (usablePalletWidth, usablePalletLength, productWidth, productL
   const booksVertically = Math.floor(usablePalletWidth / productWidth);
 
   const productsInPalletWidth = Math.floor(usablePalletWidth / productLength); // - product width, because 1 row is horizontaly positioned
-  const productsInPalletLength = Math.floor((usablePalletLength - productLength) / productWidth);
+  const productsInPalletLength = Math.floor((usablePalletLength - productLength - 20) / productWidth); // -20, because machine is putting 20mm gap between vertical and horizontal rows.
 
   const booksHorizontally = productsInPalletWidth * productsInPalletLength;
 
@@ -40,20 +39,40 @@ calculateRows_V = (usablePalletWidth, usablePalletLength, productWidth, productL
   return productsInPalletWidth * productsInPalletLength;
 };
 calculateRows_W = (usablePalletWidth, usablePalletLength, productWidth, productLength) => {
-  const booksVertically = Math.floor(usablePalletLength / productWidth);
-
-  const productsInPalletWidth = Math.floor((usablePalletWidth - productLength) / productWidth); // - product width, because 1 row is horizontaly positioned
+  //Check with 1 vertical row, how many products are there:
+  const booksVertically_oneRow = Math.floor(usablePalletLength / productWidth);
+  const productsInPalletWidth = Math.floor((usablePalletWidth - productLength) / productWidth); // - product length, because 1 row is horizontaly positioned
   const productsInPalletLength = Math.floor(usablePalletLength / productLength);
-
   const booksHorizontally = productsInPalletWidth * productsInPalletLength;
+  const oneVerticalRowResult = booksVertically_oneRow + booksHorizontally;
 
-  return booksHorizontally + booksVertically;
+  //Check with 2 vertical row, how many products are there:
+  const booksVertically_twoRows = Math.floor(usablePalletLength / productWidth);
+  const productsInPalletWidthWithTwoRows = Math.floor((usablePalletWidth - productLength * 2) / productWidth); // - product length * 2, because 2 rows are horizontaly positioned
+  const productsInPalletLengthWithTwoRows = Math.floor(usablePalletLength / productLength);
+  const booksHorizontallyWithTwoRows = productsInPalletWidthWithTwoRows * productsInPalletLengthWithTwoRows;
+  const twoVerticalRowsResult = booksVertically_twoRows * 2 + booksHorizontallyWithTwoRows;
+
+  return oneVerticalRowResult >= twoVerticalRowsResult ? oneVerticalRowResult : twoVerticalRowsResult;
+
+  // Ar 1 rindu, vecais
+  // const booksVertically = Math.floor(usablePalletLength / productWidth);
+
+  // const productsInPalletWidth = Math.floor((usablePalletWidth - productLength) / productWidth); // - product width, because 1 row is horizontaly positioned
+  // const productsInPalletLength = Math.floor(usablePalletLength / productLength);
+
+  // const booksHorizontally = productsInPalletWidth * productsInPalletLength;
+
+  // return booksHorizontally + booksVertically;
 };
 calculateRows_D = (usablePalletWidth, usablePalletLength, productWidth, productLength) => {
   //Check with 1 vertical row, how many products are there:
-  const booksVertically_oneRow = Math.floor(usablePalletWidth / productLength);
-  const productsInPalletWidth = Math.floor(usablePalletWidth / productWidth); // - product width, because 1 row is horizontaly positioned
-  const productsInPalletLength = Math.floor((usablePalletLength - productWidth) / productLength);
+  const productsInPalletWidth = Math.floor(usablePalletWidth / productWidth);
+
+  const totalBookWidths = productsInPalletWidth * productWidth;
+  const booksVertically_oneRow = Math.floor(totalBookWidths / productLength);
+
+  const productsInPalletLength = Math.floor((usablePalletLength - productWidth - 20) / productLength); // - product width, because 1 row is verticaly positioned. -20, because machine is putting 20mm gap between vertical and horizontal rows.
   const booksHorizontally = productsInPalletWidth * productsInPalletLength;
   const oneVerticalRowResult = booksVertically_oneRow + booksHorizontally;
   return oneVerticalRowResult;
