@@ -28,8 +28,6 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-res.header("Access-Control-Allow-Origin", "*");
-
 // Enable Cross-Origin Resource Sharing (CORS)
 app.use(cors());
 
